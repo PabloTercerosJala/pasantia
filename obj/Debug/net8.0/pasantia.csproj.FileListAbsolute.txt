@@ -31,3 +31,4 @@
 /home/pablo/Documents/pasantia/obj/Debug/net8.0/pasantia.pdb
 /home/pablo/Documents/pasantia/obj/Debug/net8.0/pasantia.genruntimeconfig.cache
 /home/pablo/Documents/pasantia/obj/Debug/net8.0/ref/pasantia.dll
+/home/pablo/Documents/pasantia/obj/Debug/net8.0/pasantia.sourcelink.json

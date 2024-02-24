@@ -21,24 +21,34 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/dailyForecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
+    var dailyForecasts = Enumerable.Range(1, 5).Select(index =>
+        new DailyWeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+            summaries[Random.Shared.Next(summaries.Length)],
+            Random.Shared.Next(-20, 30), // High temperature
+            Random.Shared.Next(-30, 15)  // Low temperature
+        )).ToArray();
+    return dailyForecasts;
 })
-.WithName("GetWeatherForecast")
+.WithName("GetDailyForecast")
+.WithOpenApi();
+
+app.MapGet("/hourlyForecast", () =>
+{
+    var hourlyForecasts = Enumerable.Range(1, 5).Select(index =>
+        new HourlyWeatherForecast
+        (
+            DateOnly.FromDateTime(DateTime.Now.AddHours(index)),
+            summaries[Random.Shared.Next(summaries.Length)],
+            Random.Shared.Next(-30, 30)  // Hourly temperature
+        )).ToArray();
+
+    return hourlyForecasts;
+})
+.WithName("GetHourlyForecast")
 .WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

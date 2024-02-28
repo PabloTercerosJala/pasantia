@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pasantia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1ede7ef492596f7937fe320e52a7152ae1c016d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e76924864f3e728df0f06d945c12d69a3ef83c2")]
 [assembly: System.Reflection.AssemblyProductAttribute("pasantia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pasantia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

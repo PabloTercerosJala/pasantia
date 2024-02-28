@@ -1,9 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register controllers
+builder.Services.AddSingleton<LINQController>(new LINQController());
 
 var app = builder.Build();
 
@@ -16,39 +18,50 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// Endpoints for LINQController
+app.MapGet("/projections", (LINQController controller) =>
+    controller.Projections())
+    .WithName("Projections")
+    .WithOpenApi();
 
-app.MapGet("/dailyForecast", () =>
-{
-    var dailyForecasts = Enumerable.Range(1, 5).Select(index =>
-        new DailyWeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            summaries[Random.Shared.Next(summaries.Length)],
-            Random.Shared.Next(-20, 30), // High temperature
-            Random.Shared.Next(-30, 15)  // Low temperature
-        )).ToArray();
-    return dailyForecasts;
-})
-.WithName("GetDailyForecast")
-.WithOpenApi();
+app.MapGet("/filtering", (LINQController controller) =>
+    controller.Filtering())
+    .WithName("Filtering")
+    .WithOpenApi();
 
-app.MapGet("/hourlyForecast", () =>
-{
-    var hourlyForecasts = Enumerable.Range(1, 5).Select(index =>
-        new HourlyWeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddHours(index)),
-            summaries[Random.Shared.Next(summaries.Length)],
-            Random.Shared.Next(-30, 30)  // Hourly temperature
-        )).ToArray();
+app.MapGet("/partitioning", (LINQController controller) =>
+    controller.Partitioning())
+    .WithName("Partitioning")
+    .WithOpenApi();
 
-    return hourlyForecasts;
-})
-.WithName("GetHourlyForecast")
-.WithOpenApi();
+app.MapGet("/ordering", (LINQController controller) =>
+    controller.Ordering())
+    .WithName("Ordering")
+    .WithOpenApi();
+
+app.MapGet("/quantification", (LINQController controller) =>
+    controller.Quantification())
+    .WithName("Quantification")
+    .WithOpenApi();
+
+app.MapGet("/getelement", (LINQController controller) =>
+    controller.GetElement())
+    .WithName("GetElement")
+    .WithOpenApi();
+
+app.MapGet("/aggregation", (LINQController controller) =>
+    controller.Aggregation())
+    .WithName("Aggregation")
+    .WithOpenApi();
+
+app.MapGet("/grouping", (LINQController controller) =>
+    controller.Grouping())
+    .WithName("Grouping")
+    .WithOpenApi();
+
+app.MapGet("/joining", (LINQController controller) =>
+    controller.Joining())
+    .WithName("Joining")
+    .WithOpenApi();
 
 app.Run();

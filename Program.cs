@@ -4,8 +4,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register controllers
-builder.Services.AddSingleton<LINQController>(new LINQController());
+// Register services
+builder.Services.AddSingleton<LINQService>();
+
+// Register controllers with injected service
+builder.Services.AddSingleton<LINQController>(serviceProvider =>
+{
+    var linqService = serviceProvider.GetRequiredService<LINQService>();
+    return new LINQController(linqService);
+});
 
 var app = builder.Build();
 

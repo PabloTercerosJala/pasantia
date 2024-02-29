@@ -74,4 +74,25 @@ app.MapGet("/joining", (LINQController controller) =>
     .WithName("Joining")
     .WithOpenApi();
 
+// New Endpoints
+app.MapGet("/projections/{id}", (LINQController controller, int id) =>
+    controller.GetProjection(id))
+    .WithName("GetProjection")
+    .WithOpenApi();
+
+// app.MapPost("/projections", (LINQController controller, [FromBody] ProjectionDto projectionDto) =>
+//     controller.CreateProjection(projectionDto))
+//     .WithName("CreateProjection")
+//     .WithOpenApi();
+
+// app.MapPut("/projections/{id}", (LINQController controller, int id, [FromBody] ProjectionDto projectionDto) =>
+//     controller.UpdateProjection(id, projectionDto))
+//     .WithName("UpdateProjection")
+//     .WithOpenApi();
+
+// app.MapDelete("/projections/{id}", (LINQController controller, int id) =>
+//     controller.DeleteProjection(id))
+//     .WithName("DeleteProjection")
+//     .WithOpenApi();
+
 app.Run();

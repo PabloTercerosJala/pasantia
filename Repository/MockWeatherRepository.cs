@@ -4,18 +4,17 @@ using System.Linq;
 
 public class MockWeatherRepository : IWeatherRepository
 {
-    private readonly string[] summaries = {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    private readonly List<WeatherForecast> hardcodedData = new List<WeatherForecast>
+    {
+        new WeatherForecast(DateOnly.FromDateTime(DateTime.Now.AddDays(1)), 20, "Mild"),
+        new WeatherForecast(DateOnly.FromDateTime(DateTime.Now.AddDays(2)), 25, "Warm"),
+        new WeatherForecast(DateOnly.FromDateTime(DateTime.Now.AddDays(3)), 18, "Cool"),
+        new WeatherForecast(DateOnly.FromDateTime(DateTime.Now.AddDays(4)), 10, "Cold"),
+        new WeatherForecast(DateOnly.FromDateTime(DateTime.Now.AddDays(5)), 7, "Frozen"),
     };
 
     public IEnumerable<WeatherForecast> GetWeatherForecasts(int count)
     {
-        return Enumerable.Range(1, count)
-            .Select(index =>
-                new WeatherForecast(
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ));
+        return hardcodedData.Take(count);
     }
 }

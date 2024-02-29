@@ -71,4 +71,12 @@ public class LINQController : ControllerBase
         var result = linqService.Joining();
         return Ok(result);
     }
+
+    //New Controllers
+    [HttpGet("/projections/{id}")]
+    public IActionResult GetProjection(int id)
+    {
+        var result = linqService.GetProjection(id);
+        return Ok(result);
+    }
 }

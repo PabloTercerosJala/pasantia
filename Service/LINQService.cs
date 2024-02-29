@@ -85,4 +85,19 @@ public class LINQService
             .ToArray();
         return joinedList;
     }
+
+    //New Services
+    public object GetProjection(int id)
+    {
+        var projection = weatherRepository.GetWeatherForecasts(5)
+            .Select(weather =>
+                new
+                {
+                    Date = weather.Date,
+                    TemperatureF = weather.TemperatureF,
+                    SummaryLength = weather.Summary?.Length ?? 0
+                })
+            .ToArray()[id];
+        return projection;
+    }
 }

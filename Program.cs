@@ -4,6 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register repositories
+builder.Services.AddSingleton<IWeatherRepository, MockWeatherRepository>();
+
 // Register services
 builder.Services.AddSingleton<LINQService>();
 

@@ -93,4 +93,12 @@ public class LINQController : ControllerBase
         var result = linqService.PutProjection(id, weatherForecast);
         return Ok(result);
     }
+
+    [HttpDelete("/projections/{id}")]
+    public IActionResult DeleteProjection(int id)
+    {
+        var result = linqService.DeleteProjection(id);
+        return Ok(result);
+    }
+
 }

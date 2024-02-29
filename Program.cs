@@ -90,9 +90,9 @@ app.MapPut("/projections/{id}", (LINQController controller, int id, WeatherForec
     .WithName("PutProjection")
     .WithOpenApi();
 
-// app.MapDelete("/projections/{id}", (LINQController controller, int id) =>
-//     controller.DeleteProjection(id))
-//     .WithName("DeleteProjection")
-//     .WithOpenApi();
+app.MapDelete("/projections/{id}", (LINQController controller, int id) =>
+    controller.DeleteProjection(id))
+    .WithName("DeleteProjection")
+    .WithOpenApi();
 
 app.Run();

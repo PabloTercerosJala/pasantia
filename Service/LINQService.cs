@@ -163,4 +163,32 @@ public class LINQService
             return "Invalid ID";
         }
     }
+
+    public object DeleteProjection(int id)
+    {
+        var existingWeatherForecasts = weatherRepository.GetWeatherForecasts(5)
+            .Select(weather =>
+                new
+                {
+                    Date = weather.Date,
+                    TemperatureF = weather.TemperatureF,
+                    SummaryLength = weather.Summary?.Length ?? 0
+                })
+            .ToArray();
+
+        if (id >= 0 && id < existingWeatherForecasts.Length)
+        {
+            // Create a new array excluding the forecast at the specified ID
+            var updatedProjection = existingWeatherForecasts
+                .Take(id)
+                .Concat(existingWeatherForecasts.Skip(id + 1))
+                .ToArray();
+
+            return updatedProjection;
+        }
+        else
+        {
+            return "Invalid ID";
+        }
+    }
 }

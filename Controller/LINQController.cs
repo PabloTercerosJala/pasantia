@@ -72,7 +72,6 @@ public class LINQController : ControllerBase
         return Ok(result);
     }
 
-    //New Controllers
     [HttpGet("/projections/{id}")]
     public IActionResult GetProjection(int id)
     {
@@ -100,5 +99,4 @@ public class LINQController : ControllerBase
         var result = linqService.DeleteProjection(id);
         return Ok(result);
     }
-
 }

@@ -1,16 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register repositories
 builder.Services.AddSingleton<IWeatherRepository, MockWeatherRepository>();
 
-// Register services
 builder.Services.AddSingleton<LINQService>();
 
-// Register controllers with injected service
 builder.Services.AddSingleton<LINQController>(serviceProvider =>
 {
     var linqService = serviceProvider.GetRequiredService<LINQService>();
@@ -19,7 +15,6 @@ builder.Services.AddSingleton<LINQController>(serviceProvider =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,7 +23,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Endpoints for LINQController
 app.MapGet("/projections", (LINQController controller) =>
     controller.Projections())
     .WithName("Projections")
@@ -74,7 +68,6 @@ app.MapGet("/joining", (LINQController controller) =>
     .WithName("Joining")
     .WithOpenApi();
 
-// New Endpoints
 app.MapGet("/projections/{id}", (LINQController controller, int id) =>
     controller.GetProjection(id))
     .WithName("GetProjection")

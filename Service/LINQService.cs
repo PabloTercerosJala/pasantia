@@ -86,7 +86,6 @@ public class LINQService
         return joinedList;
     }
 
-    //New Services
     public object GetProjection(int id)
     {
         var projection = weatherRepository.GetWeatherForecasts(5)
@@ -143,9 +142,8 @@ public class LINQService
         {
             var projection = existingWeatherForecasts[id];
 
-            // Concatenate the existing forecasts with the provided weatherForecast
             var updatedProjection = existingWeatherForecasts
-                .Take(id) // Take elements before the specified ID
+                .Take(id)
                 .Concat(new[] { new
                 {
                     Date = weatherForecast.Date,
@@ -153,7 +151,7 @@ public class LINQService
                     SummaryLength = weatherForecast.Summary?.Length ?? 0
                 }
                 })
-                .Concat(existingWeatherForecasts.Skip(id + 1)) // Skip the specified ID and take the rest
+                .Concat(existingWeatherForecasts.Skip(id + 1))
                 .ToArray();
 
             return updatedProjection;
@@ -178,7 +176,6 @@ public class LINQService
 
         if (id >= 0 && id < existingWeatherForecasts.Length)
         {
-            // Create a new array excluding the forecast at the specified ID
             var updatedProjection = existingWeatherForecasts
                 .Take(id)
                 .Concat(existingWeatherForecasts.Skip(id + 1))

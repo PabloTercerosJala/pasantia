@@ -80,10 +80,10 @@ app.MapGet("/projections/{id}", (LINQController controller, int id) =>
     .WithName("GetProjection")
     .WithOpenApi();
 
-// app.MapPost("/projections", (LINQController controller, [FromBody] ProjectionDto projectionDto) =>
-//     controller.CreateProjection(projectionDto))
-//     .WithName("CreateProjection")
-//     .WithOpenApi();
+app.MapPost("/projections", (LINQController controller, WeatherForecast weatherForecast) =>
+    controller.PostProjection(weatherForecast))
+    .WithName("PostProjection")
+    .WithOpenApi();
 
 // app.MapPut("/projections/{id}", (LINQController controller, int id, [FromBody] ProjectionDto projectionDto) =>
 //     controller.UpdateProjection(id, projectionDto))

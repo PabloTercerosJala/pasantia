@@ -100,4 +100,30 @@ public class LINQService
             .ToArray()[id];
         return projection;
     }
+
+    public object PostProjection(WeatherForecast weatherForecast)
+    {
+        var existingWeatherForecasts = weatherRepository.GetWeatherForecasts(5)
+            .Select(weather =>
+                new
+                {
+                    Date = weather.Date,
+                    TemperatureF = weather.TemperatureF,
+                    SummaryLength = weather.Summary?.Length ?? 0
+                });
+
+        var projection = existingWeatherForecasts
+            .Concat(new[]
+            {
+            new
+            {
+                Date = weatherForecast.Date,
+                TemperatureF = weatherForecast.TemperatureF,
+                SummaryLength = weatherForecast.Summary?.Length ?? 0
+            }
+            })
+            .ToArray();
+
+        return projection;
+    }
 }

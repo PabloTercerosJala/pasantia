@@ -79,4 +79,11 @@ public class LINQController : ControllerBase
         var result = linqService.GetProjection(id);
         return Ok(result);
     }
+
+    [HttpPost("/projections")]
+    public IActionResult PostProjection(WeatherForecast weatherForecast)
+    {
+        var result = linqService.PostProjection(weatherForecast);
+        return Ok(result);
+    }
 }

@@ -86,4 +86,11 @@ public class LINQController : ControllerBase
         var result = linqService.PostProjection(weatherForecast);
         return Ok(result);
     }
+
+    [HttpPut("/projections/{id}")]
+    public IActionResult PutProjection(int id, WeatherForecast weatherForecast)
+    {
+        var result = linqService.PutProjection(id, weatherForecast);
+        return Ok(result);
+    }
 }

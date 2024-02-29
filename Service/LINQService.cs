@@ -126,4 +126,41 @@ public class LINQService
 
         return projection;
     }
+
+    public object PutProjection(int id, WeatherForecast weatherForecast)
+    {
+        var existingWeatherForecasts = weatherRepository.GetWeatherForecasts(5)
+            .Select(weather =>
+                new
+                {
+                    Date = weather.Date,
+                    TemperatureF = weather.TemperatureF,
+                    SummaryLength = weather.Summary?.Length ?? 0
+                })
+            .ToArray();
+
+        if (id >= 0 && id < existingWeatherForecasts.Length)
+        {
+            var projection = existingWeatherForecasts[id];
+
+            // Concatenate the existing forecasts with the provided weatherForecast
+            var updatedProjection = existingWeatherForecasts
+                .Take(id) // Take elements before the specified ID
+                .Concat(new[] { new
+                {
+                    Date = weatherForecast.Date,
+                    TemperatureF = weatherForecast.TemperatureF,
+                    SummaryLength = weatherForecast.Summary?.Length ?? 0
+                }
+                })
+                .Concat(existingWeatherForecasts.Skip(id + 1)) // Skip the specified ID and take the rest
+                .ToArray();
+
+            return updatedProjection;
+        }
+        else
+        {
+            return "Invalid ID";
+        }
+    }
 }

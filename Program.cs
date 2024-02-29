@@ -85,10 +85,10 @@ app.MapPost("/projections", (LINQController controller, WeatherForecast weatherF
     .WithName("PostProjection")
     .WithOpenApi();
 
-// app.MapPut("/projections/{id}", (LINQController controller, int id, [FromBody] ProjectionDto projectionDto) =>
-//     controller.UpdateProjection(id, projectionDto))
-//     .WithName("UpdateProjection")
-//     .WithOpenApi();
+app.MapPut("/projections/{id}", (LINQController controller, int id, WeatherForecast weatherForecast) =>
+    controller.PutProjection(id, weatherForecast))
+    .WithName("PutProjection")
+    .WithOpenApi();
 
 // app.MapDelete("/projections/{id}", (LINQController controller, int id) =>
 //     controller.DeleteProjection(id))

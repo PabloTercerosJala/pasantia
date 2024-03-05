@@ -17,15 +17,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("customers", async (IConfiguration configuration) =>
+app.MapGet("innerjoin", async (IConfiguration configuration) =>
 {
     var connectionString = configuration.GetConnectionString("DefaultConnection");
 
     using var connection = new SqlConnection(connectionString);
 
-    const string sql = "SELECT * FROM Customers";
+    const string sql = "SELECT Employees.EmployeeName, Departments.DepartmentName FROM Employees INNER JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID";
 
-    var customers = await connection.QueryAsync<Customer>(sql);
+    var customers = await connection.QueryAsync<InnerJoin>(sql);
 
     return Results.Ok(customers);
 });

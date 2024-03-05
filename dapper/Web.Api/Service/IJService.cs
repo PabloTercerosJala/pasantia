@@ -11,7 +11,7 @@ public class IJService
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
-    public async Task<IEnumerable<InnerJoin>> GetInnerJoinDataAsync()
+    public virtual async Task<IEnumerable<InnerJoin>> GetInnerJoinDataAsync()
     {
         using var connection = new SqlConnection(_connectionString);
 

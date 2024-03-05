@@ -1,3 +1,7 @@
+using Dapper;
+using Microsoft.Data.SqlClient;
+using Web.Api.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -12,5 +16,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapGet("customers", async (IConfiguration configuration) =>
+{
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+    using var connection = new SqlConnection(connectionString);
+
+    const string sql = "SELECT * FROM Customers";
+
+    var customers = await connection.QueryAsync<Customer>(sql);
+
+    return Results.Ok(customers);
+});
 
 app.Run();

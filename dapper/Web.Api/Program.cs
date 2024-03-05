@@ -30,4 +30,6 @@ app.MapGet("innerjoin", async (IConfiguration configuration) =>
     return Results.Ok(customers);
 });
 
+
+
 app.Run();

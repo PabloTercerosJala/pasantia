@@ -11,8 +11,8 @@ public class EmployeesController : ControllerBase
 {
     private static List<Employee> employees = new List<Employee>
     {
-        new Employee { Id = 1, FirstName = "John", LastName = "Doe", Position = "Developer" },
-        new Employee { Id = 2, FirstName = "Jane", LastName = "Smith", Position = "Designer" }
+        new Employee { Id = 0, FirstName = "John", LastName = "Doe", Position = "Developer" },
+        new Employee { Id = 1, FirstName = "Jane", LastName = "Smith", Position = "Designer" }
     };
 
     [HttpGet]
@@ -42,12 +42,24 @@ public class EmployeesController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status415UnsupportedMediaType)]
     public ActionResult<Employee> UpdateEmployee(int id, Employee updatedEmployee)
     {
+        if (Request.ContentType != null && !Request.ContentType.Contains("application/json"))
+        {
+            return StatusCode(StatusCodes.Status415UnsupportedMediaType, "Unsupported media type. Please use 'application/json'.");
+        }
+
         var existingEmployee = employees.Find(e => e.Id == id);
 
         if (existingEmployee == null)
-            return NotFound();
+        {
+            employees.Add(updatedEmployee);
+            return CreatedAtAction(nameof(UpdateEmployee), new { id = updatedEmployee.Id }, updatedEmployee);
+        }
 
         existingEmployee.FirstName = updatedEmployee.FirstName;
         existingEmployee.LastName = updatedEmployee.LastName;

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("swagger-docs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40b8607fbb2fa4970b01e6a73e6c0a2f9997d880")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c956624b9a69bc43e2c2186f4dce88ada747cded")]
 [assembly: System.Reflection.AssemblyProductAttribute("swagger-docs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("swagger-docs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
